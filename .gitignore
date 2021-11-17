@@ -1,3 +1,4 @@
 .history/
 *.h5
 my_dir/
+wandb/
