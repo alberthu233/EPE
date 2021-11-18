@@ -3,3 +3,6 @@
 my_dir/
 wandb/
 cifar-10-batches-py/
+__pycache__/
+*.pickle
+.vscode/
