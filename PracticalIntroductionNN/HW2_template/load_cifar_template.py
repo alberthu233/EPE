@@ -1,49 +1,32 @@
 import pickle
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
-#Step 1: define a function to load traing batch data from directory
-def load_training_batch(folder_path,batch_id):
-	"""
-	Args:
-		folder_path: the directory contains data files
-		batch_id: training batch id (1,2,3,4,5)
-	Return:
-		features: numpy array that has shape (10000,3072)
-		labels: a list that has length 10000
-	"""
 
-	###load batch using pickle###
-	
-	###fetch features using the key ['data']###
-	features = pass
-	###fetch labels using the key ['labels']###
-	labels = pass
-	return features,labels
+def unpickle(file):
+    import pickle
+    with open(file, 'rb') as fo:
+        dict = pickle.load(fo, encoding='latin1')
+    return dict
+
+def load_training_batch(folder_path, batch_id):
+	file_name = folder_path + '/data_batch' + str(batch_id)
+	dict = unpickle(file_name)
+	return dict
 
 #Step 2: define a function to load testing data from directory
 def load_testing_batch(folder_path):
-	"""
-	Args:
-		folder_path: the directory contains data files
-	Return:
-		features: numpy array that has shape (10000,3072)
-		labels: a list that has length 10000
-	"""
-
-	###load batch using pickle###
-
-	###fetch features using the key ['data']###
-	features = pass
-	###fetch labels using the key ['labels']###
-	labels = pass
-	return features,labels
+	file_name = folder_path + '/test_batch'
+	dict = unpickle(file_name)
+	return dict
 
 #Step 3: define a function that returns a list that contains label names (order is matter)
 """
 	airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck
 """
 def load_label_names():
-		pass
+	pass
 	return
 
 #Step 4: define a function that reshapes the features to have shape (10000, 32, 32, 3)
@@ -54,8 +37,8 @@ def features_reshape(features):
 	Return:
 		features: a numpy array with shape (10000,32,32,3)
 	"""
-		pass
-	return
+	features = np.reshape(features, (10000,32,32,3))
+	return features
 
 #Step 5 (Optional): A function to display the stats of specific batch data.
 def display_data_stat(folder_path,batch_id,data_id):
@@ -66,13 +49,16 @@ def display_data_stat(folder_path,batch_id,data_id):
 		data_id: the specific number of data example you want to visualize
 	Return:
 		None
-
 	Descrption: 
 		1)You can print out the number of images for every class. 
 		2)Visualize the image
 		3)Print out the minimum and maximum values of pixel 
 	"""
-	pass
+	file_name = folder_path + '/data_batch_' + str(batch_id)
+	dict = unpickle(file_name)
+	features = dict["data"]
+	features = features_reshape(features)
+	image = np.squeeze
 
 #Step 6: define a function that does min-max normalization on input
 def normalize(x):
