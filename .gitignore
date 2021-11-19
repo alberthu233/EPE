@@ -6,3 +6,8 @@ cifar-10-batches-py/
 __pycache__/
 *.pickle
 .vscode/
+cat_dog/test/
+train/
+test1/
+*.jpg
+*.npz
