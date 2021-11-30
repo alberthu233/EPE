@@ -11,3 +11,4 @@ train/
 test1/
 *.jpg
 *.npz
+*.json
