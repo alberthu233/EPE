@@ -13,3 +13,4 @@ test1/
 *.npz
 *.json
 *ckpt
+*.root
