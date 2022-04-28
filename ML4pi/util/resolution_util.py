@@ -14,12 +14,15 @@ def responsePlot(x, y, figfile='', statistic='median',
                  xlabel='True Energy [GeV]', ylabel='Predicted Energy / True Energy',
                  xlim=(0.3,1000), ylim=(0,3), baseline=True,
                  atlas_x=-1, atlas_y=-1, simulation=False,
+                 fill_error=False, step=0.05,
                  textlist=[]):
-    xbin = [10**exp for exp in np.arange(-1.0, 3.1, 0.1)]
-    ybin = np.arange(0., 3.1, 0.1)
+    xbin = [10**exp for exp in np.arange(-1.0, 3.1, step)]
+    ybin = np.arange(0., 3.1, step)
     xcenter = [(xbin[i] + xbin[i+1]) / 2 for i in range(len(xbin)-1)]
     profileXMed = stats.binned_statistic(
         x, y, bins=xbin, statistic=statistic).statistic
+    profileXstd = stats.binned_statistic(
+        x, y, bins=xbin, statistic='std').statistic
 
     plt.cla()
     plt.clf()
@@ -27,6 +30,9 @@ def responsePlot(x, y, figfile='', statistic='median',
     fig.patch.set_facecolor('white')
     plt.hist2d(x, y, bins=[xbin, ybin], norm=LogNorm(),zorder = -1)
     plt.plot(xcenter, profileXMed, color='red')
+    if fill_error:
+        plt.fill_between(xcenter, profileXMed - profileXstd,
+                        profileXMed + profileXstd, color='red', alpha=0.5)
     if baseline:
         plt.plot([0.1, 1000], [1, 1], linestyle='--', color='black')
     plt.xscale('log')
@@ -45,7 +51,7 @@ def responsePlot(x, y, figfile='', statistic='median',
         plt.savefig(figfile)
     plt.show()
 
-    return xcenter, profileXMed
+    return xcenter, profileXMed, profileXstd
 
 
 def stdOverMean(x):
