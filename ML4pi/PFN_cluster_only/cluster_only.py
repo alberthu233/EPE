@@ -182,11 +182,12 @@ ext_plotpath = ext_path + "plots/"
 
 # set up file names
 print('Setting up file names...')
-Nfile = 150
+Nfile = 50
 print('Number of files:', Nfile)
 fileNames = []
+startingF = 1
 file_prefix = 'user.angerami.24559744.OutputStream._000'
-for i in range(1,Nfile+1):
+for i in range(startingF,startingF+Nfile):
     endstring = f'{i:03}'
     fileNames.append(file_prefix + endstring + '.root')
 
@@ -197,7 +198,7 @@ CellGeo_tree = geo_file["CellGeo"]
 geo_dict = dict_from_tree_branches_np(CellGeo_tree, geo_branches)
 
 
-k = 1 # tally used to keep track of file number
+k = 101 # tally used to keep track of file number
 tot_nEvts = 0 # used for keeping track of total number of events
 max_nPoints = 0 # used for keeping track of the largest 'point cloud'
 t_tot = 0 # total time
