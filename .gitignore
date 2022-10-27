@@ -14,3 +14,6 @@ test1/
 *.json
 *ckpt
 *.root
+*.bin
+Graph_net/
+graph_study/
